@@ -1,0 +1,254 @@
+:root {
+    font-size: 10px;
+    --grey-text: #828282;
+    --black-text: #111;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    font-family: "Roboto", Arial, sans-serif;
+    min-height: 100vh;
+    margin: 0px;
+    overflow-x: hidden;
+}
+
+a {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.container {
+    max-width: 138rem;
+    margin: 0 auto;
+    padding: 0 2vw;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font: inherit;
+    background: none;
+    border: none;
+    color: inherit;
+    padding: 0;
+    text-transform: uppercase;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.btn:focus {
+    outline: none;
+}
+
+::-webkit-scrollbar {
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 0.5rem;
+    border: 0.2rem solid #fff;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #666;
+}
+
+/* Masthead */
+
+.masthead {
+    display: flex;
+    flex-basis: 5.6rem;
+    align-items: center;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    padding: 0 2.2rem;
+    box-shadow: 0 0.2rem 0.2rem rgba(17, 17, 17, 0.2);
+    z-index: 1;
+}
+
+.logo {
+    flex: 0 0 15rem;
+    margin-left: 2.5rem;
+}
+
+.site-search {
+    flex-grow: 1;
+    margin: 0 2.5rem;
+    transform: translateX(25%);
+}
+
+.menu-btn {
+    font-size: 2rem;
+    color: #888;
+    padding: 0 0.5rem;
+    outline: none;
+}
+
+.logo h1 {
+    font-family: "Oswald", Arial, sans-serif;
+    font-size: 2.2rem;
+    font-weight: 600;
+    letter-spacing: -0.12rem;
+    color: #282828;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.logo-icon {
+    color: #f00;
+    padding-right: 0.5rem;
+}
+
+.site-search {
+    display: flex;
+    height: 3.2rem;
+}
+
+.search-input,
+.search-btn {
+    border: 0.1rem solid #ccc;
+}
+
+.search-input {
+    flex-basis: 60rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+    border-top-left-radius: 0.3rem;
+    border-bottom-left-radius: 0.3rem;
+    border-right: none;
+    padding-left: 1rem;
+    color: var(--black-text);
+}
+
+.search-input::-webkit-input-placeholder {
+    color: var(--grey-text);
+}
+
+.search-input:-ms-input-placeholder {
+    color: var(--grey-text);
+}
+
+.search-input::-ms-input-placeholder {
+    color: var(--grey-text);
+}
+
+.search-input::placeholder {
+    color: var(--grey-text);
+}
+
+.search-btn {
+    flex: 0 0 6.5rem;
+    border-top-right-radius: 0.3rem;
+    border-bottom-right-radius: 0.3rem;
+    background-color: #f8f8f8;
+    color: var(--black-text);
+    cursor: pointer;
+}
+
+.search-btn:hover {
+    background-color: #f0f0f0;
+}
+
+.user-menu {
+    flex-basis: 16rem;
+    display: flex;
+    font-size: 1.6rem;
+    color: var(--grey-text);
+}
+
+.user-menu .btn {
+    flex: 0 0 4rem;
+    font-size: 2rem;
+}
+
+.main {
+    margin: 0;
+    display: flex;
+}
+
+.main .left-navbar {
+    position: fixed;
+    top:5%;
+    left: 0;
+    width: 15%;
+    height: 100vh;
+    overflow: scroll;
+}
+
+.left-navbar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 200;
+}
+
+.left-navbar ul .fas {
+    font-size: 2rem;
+    width: 20px;
+    margin-right: 30px;
+    color: #666;
+}
+.left-navbar .menu .menu-item .fa-home {
+    color: red;
+}
+
+.left-navbar ul li {
+   padding: 15px 15px 15px 25px;
+   cursor: pointer;
+}
+
+.left-navbar ul li:hover,
+.left-navbar ul li .active {
+    background-color: #f1f1f1;
+}
+
+.left-navbar .menu {
+    border-bottom: 1px solid rgba(34, 7, 57, .2);
+}
+
+.main .content {
+    flex-basis: 85%;
+    margin-left: 15%;
+    background-color:#f9f9f9;
+    overflow-y: scroll;
+    padding: 20px;
+}
+
+.popup {
+    position: fixed;
+    top: 5%;
+    right: 1%;
+    width: 10%;
+    text-align: center;
+    background-color: white;
+    border: 1px solid  rgba(34, 7, 57, .2);
+}
+
+.popup ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.popup ul li {
+    padding: 15px 15px 15px 25px;
+}
+
+
