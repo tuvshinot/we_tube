@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import Video, TubeChannel, TubeUser, Tag
 
-# Register your models here.
+admin.site.register(Video)
+admin.site.register(TubeChannel)
+admin.site.register(TubeUser)
+admin.site.register(Tag)

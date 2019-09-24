@@ -1,0 +1,23 @@
+{% extends 'auth/base.html' %}
+
+{% block content %}
+    <form class="hide login100-form validate-form" method="POST">
+        {% csrf_token %}
+        <div class="text-center p-t-55 p-b-30">
+            <span class="txt1">
+                Create channel
+            </span>
+        </div>
+        
+        <div class="wrap-input100 validate-input m-b-16" data-validate="Please enter username">
+            <input class="input100" type="text" name="channel-name" placeholder="Channel name...">
+            <span class="focus-input100"></span>
+        </div>
+
+        <div class="container-login100-form-btn">
+            <button class="login100-form-btn">
+                Create
+            </button>
+        </div>
+    </form>
+{% endblock %}
