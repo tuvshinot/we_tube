@@ -9,6 +9,7 @@
     background: url("https://images.unsplash.com/photo-1486597622250-f997d79907f8?w=1400&h=600&fit=crop") no-repeat center 35%;
     background-size: cover;
     padding: 1.6rem;
+    height: 250px;
 }
 
 .channel-social-links {
@@ -55,6 +56,9 @@
     height: 8rem;
     border-radius: 50%;
     overflow: hidden;
+}
+.channel-icon img {
+    height: 80px;
 }
 
 .channel-title {
@@ -104,7 +108,7 @@
 
 .channel-nav {
     background-color: #fafafa;
-    padding-bottom: 0.5rem;
+    padding-bottom: 2.5rem;
     white-space: nowrap;
     overflow-x: auto;
 }
@@ -194,9 +198,13 @@
 .featured-video .video-thumbnail {
     margin-right: 1.5rem;
 }
+.video-thumbnail img {
+    height: 150px;
+    width: 280px;
+}
 
 .featured-video .video-title {
-    font-size: 1.8rem;
+    font-size: 2.8rem;
     font-weight: 400;
 }
 
@@ -350,6 +358,7 @@ Remove or comment-out the code block below to see how the browser will fall-back
         display: grid;
         grid-template-columns: auto 1fr;
         grid-gap: 1.5rem;
+        padding-bottom: 4.5rem;
     }
 
     .playlist-videos {

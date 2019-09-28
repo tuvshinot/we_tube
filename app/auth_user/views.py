@@ -14,8 +14,7 @@ def sign_in(request):
         if user is not None:
             auth.login(request, user)
             messages.success(request, 'You are now logged in!')
-
-            next_url = request.GET['next']
+            next_url = request.GET.get('next', None)
             if next_url is not None:
                 return redirect(next_url)
             return redirect('home')

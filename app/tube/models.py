@@ -3,6 +3,15 @@ from django.conf import settings
 from django.utils import timezone
 from django.urls import reverse
 from django.db.models.signals import post_save
+from uuid import uuid4
+import os
+
+
+def video_file_path(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = f'{uuid4()}.{ext}'
+
+    return os.path.join(f'videos/{instance.channel.id}/', filename)
 
 
 class Tag(models.Model):
@@ -18,7 +27,11 @@ class TubeChannel(models.Model):
 
     @property
     def subscribers_count(self):
-        return self.tubeuser_set.count()
+        return self.subscribed_channels.count()
+
+    @property
+    def get_videos(self):
+        return self.video_set.all()
 
     # slug_url_kwarg = 'channel'
     def get_absolute_url(self):
@@ -26,6 +39,9 @@ class TubeChannel(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def get_featured_video(self):
+        return self.video_set.last()
 
 
 class TubeUser(models.Model):
@@ -47,20 +63,15 @@ class TubeUser(models.Model):
         return self.subscribed_channels.all()
 
 
-def directory_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-    return 'user_{0}/{1}'.format(instance.channel.id, filename)
-
-
 class Video(models.Model):
     title = models.CharField(max_length=200)
     channel = models.ForeignKey(
         TubeChannel, on_delete=models.CASCADE)
     timestamp = models.DateField(default=timezone.now)
-    thumbnail = models.ImageField(upload_to='profile_pics')
+    thumbnail = models.ImageField(upload_to='thumbnails')
     views = models.IntegerField(default=0)
     tags = models.ManyToManyField(Tag, blank=True)
-    video_content = models.FileField(upload_to=directory_path)
+    video_content = models.FileField(upload_to=video_file_path)
 
     def __str__(self):
         return self.title
@@ -68,6 +79,10 @@ class Video(models.Model):
     # pk_url_kwarg = 'v'
     def get_absolute_url(self):
         return reverse('video-detail', kwargs={'v': self.pk})
+
+    @property
+    def created_at(self):
+        pass
 
 
 def post_save_tubeuser_create(sender, instance, created, *args, **kwargs):

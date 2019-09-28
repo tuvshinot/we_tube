@@ -1,0 +1,129 @@
+{% extends 'tube/base.html' %}
+
+{% block content %}
+    <section class="channel-banner">
+
+        <div class="channel-social-links">
+            <ul>
+                <li class="btn google-plus">
+                    <i class="fab fa-google-plus-square" aria-hidden="true"></i>
+                </li>
+
+                <li class="btn twitter">
+                    <i class="fab fa-twitter-square" aria-hidden="true"></i>
+                </li>
+
+                <li class="btn facebook">
+                    <i class="fab fa-facebook-square" aria-hidden="true"></i>
+                </li>
+            </ul>
+
+        </div>
+
+    </section>
+     <!-- Channel Info -->
+     <section class="channel-info">
+
+        <div class="container">
+
+            <div class="channel-icon">
+
+                <img src="{{ channel.tubeuser.image.url }}" alt="">
+
+            </div>
+
+            <div class="channel-title">
+
+                <h1>{{ channel.name }} <!--<i class="fas fa-check-circle"></i>--></h1>
+
+                <div class="channel-subscriber-count">{{ channel.subscribers_count }} subscribers</div>
+
+            </div>
+
+            <div class="channel-subscribe">
+
+                <button class="subscribe-btn btn">Subscribed 2.1m</button>
+
+                <button class="notification-btn btn" aria-label="Enable Notifications"><i class="fas fa-bell" aria-hidden="true"></i></button>
+
+            </div>
+
+        </div>
+
+    </section>
+    <nav class="channel-nav">
+
+        <div class="container">
+
+            <ul>
+
+                <li class="nav-item">
+                    <a href="#" class="current">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#">Videos</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#">Playlists</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#">Community</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#">Channels</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#">About</a>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </nav>
+    <!-- End of channel navigation -->
+    <div class="featured-video">
+
+        <div class="video-thumbnail">
+            <img src="{{ channel.get_featured_video.thumbnail.url }}" alt="">
+        </div>
+
+        <div class="video-info">
+            <h3 class="video-title">{{ channel.get_featured_video.title }}</h3>
+            <ul class="video-meta-data">
+                <div><li class="video-creator">{{ channel.name }}</li></div>
+                <li class="video-views">{{ channel.get_featured_video.views }} views</li>
+                <li class="video-upload-date">{{ channel.get_featured_video.timestamp }}</li>
+            </ul>
+            <p class="video-description">Another installment of the really cool vlog. Please like and share the video. Subscribe and activate notifications so you never miss an upload. Follow on social media etc.</p>
+        </div>
+
+    </div>  
+
+
+    <section class="section-home">
+        <h2 class="title">Uploads</h2>
+        {% for v in channel.get_videos %}
+            <div class="section-home__video">
+                <div class="section-home__video-thumbnail">
+                    <img src="{{ v.thumbnail.url }}" alt="Video thumbnail">
+                </div>
+                <div class="home__video-info">
+                    <h3>{{ v.title }}</h3>
+                    <div class="creator"><a href="{{ channel.get_absolute_url }}">{{ channel.name }} </a></div>
+                    <span class="views">{{ v.views }} views</span>
+                    <span class="upload-date"> &#8226; {{ v.timestamp }}</span>
+                    <span class="settings-top"><i class="fas fa-ellipsis-v"></i></span>
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+
+
+    
+{% endblock%}

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>WeTube</title>
+    <title>{{ page_title }}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="shortcut icon" href="https://s.ytimg.com/yts/img/favicon-vfl8qSV2F.ico" type="image/x-icon">
@@ -22,7 +22,7 @@
             </button>
 
         <div class="logo">
-            <a href="#">
+            <a href="{% url 'home' %}">
                 <h1><i class="fab fa-youtube logo-icon" aria-hidden="true"></i>WeTube</h1>
             </a>
         </div>
@@ -34,25 +34,40 @@
 
         <div class="user-menu">
             <button id="account-popup" class="btn" aria-label="Account">
-                        <i class="fas fa-user-circle" aria-hidden="true"></i>
-                    </button>
+                <a href="javascript:void"><i class="fas fa-user-circle" aria-hidden="true"></i></a>
+            </button>
 
             <button class="btn" aria-label="Upload">
-                    <i class="fas fa-upload" aria-hidden="true"></i>
-                </button>
+            {% if user.is_authenticated %}
+                {% if user.tubeuser.has_channel %}
+                    <a href="{% url 'upload' %}"><i class="fas fa-upload" aria-hidden="true"></i></a>
+                {% else %}
+                    <a href="{% url 'channel-create' %}?next={% url 'upload' %}"><i class="fas fa-upload" aria-hidden="true"></i></a>
+                {% endif %}
+            {% else %}
+                <a href="{% url 'sign-in' %}"><i class="fas fa-upload" aria-hidden="true"></i></a>
+            {% endif %}
+            </button>
 
             <button class="btn" aria-label="Notifications">
-                    <i class="fas fa-bell" aria-hidden="true"></i>
-                </button>
+                <a href="javascript:void"><i class="fas fa-bell" aria-hidden="true"></i></a>  
+            </button>
 
             <button class="btn" aria-label="YouTube Apps">
-                        <i class="fas fa-th" aria-hidden="true"></i>
-                </button>
+                <a href="javascript:void"><i class="fas fa-th" aria-hidden="true"></i></a>
+            </button>
                 
             <div class="popup hide" id="popup">
                 <ul>
                     {% if user.is_authenticated %}
                         <a href="javascript:{document.getElementById('logout').submit()}"><li id="popup-logout"><i class="fas fa-sign-out-alt"></i> Log out</li></a>
+                        {% if user.tubeuser.has_channel %}
+                            <a href="{{ user.tubeuser.channel.get_absolute_url }}"><li><i class="fas fa-video"></i> My channel</li></a>
+                        {% else %}
+                            <a href="{% url 'channel-create' %}"><li><i class="fas fa-video"></i> My channel</li></a>
+                        {% endif %}
+
+
                         <form action="{% url 'logout' %}" method="POST" id="logout">
                             {% csrf_token %}
                             <input type="hidden">
@@ -96,10 +111,9 @@
             </div>
         </div>
     </main>
-
-    <script src="{% static 'tube/js/main.js' %}"></script>
     <script src="{% static 'auth/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
 	<script src="{% static 'auth/vendor/bootstrap/js/popper.js' %}"></script>
 	<script src="{% static 'auth/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'tube/js/main.js' %}"></script>
 </body>
 </html>
