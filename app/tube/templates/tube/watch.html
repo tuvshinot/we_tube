@@ -1,0 +1,13 @@
+{% extends 'tube/bases/base-no-sidebar.html' %}
+
+{% block content %}
+    <div class="watch-container">
+        <h1>{{ video.title }}</h1>
+        <p></p>
+    
+        <video width="400" controls>
+            <source src="{{ video.video_content.url }}" type="video/mp4">
+            Your browser does not support HTML5 video.
+        </video>
+    </div>
+{% endblock %}

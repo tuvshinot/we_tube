@@ -76,9 +76,9 @@ class Video(models.Model):
     def __str__(self):
         return self.title
 
-    # pk_url_kwarg = 'v'
+    # pk_url_kwarg = 'video'
     def get_absolute_url(self):
-        return reverse('video-detail', kwargs={'v': self.pk})
+        return reverse('watch-video', kwargs={'video': self.pk})
 
     @property
     def created_at(self):

@@ -88,3 +88,15 @@ class ChannelDetail(DetailView):
         context = super().get_context_data(**kwargs)
         context['page_title'] = kwargs['object'].name
         return context
+
+
+class VideoDetail(DetailView):
+    model = Video
+    pk_url_kwarg = 'video'
+    context_object_name = 'video'
+    template_name = 'tube/watch.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = kwargs['object'].title
+        return context

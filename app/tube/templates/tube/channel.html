@@ -1,4 +1,4 @@
-{% extends 'tube/base.html' %}
+{% extends 'tube/bases/base.html' %}
 
 {% block content %}
     <section class="channel-banner">
@@ -114,7 +114,7 @@
                     <img src="{{ v.thumbnail.url }}" alt="Video thumbnail">
                 </div>
                 <div class="home__video-info">
-                    <h3>{{ v.title }}</h3>
+                    <a href="{{ v.get_absolute_url }}"><h3>{{ v.title }}</h3></a>
                     <div class="creator"><a href="{{ channel.get_absolute_url }}">{{ channel.name }} </a></div>
                     <span class="views">{{ v.views }} views</span>
                     <span class="upload-date"> &#8226; {{ v.timestamp }}</span>
