@@ -27,7 +27,7 @@ class TubeChannel(models.Model):
 
     @property
     def subscribers_count(self):
-        return self.subscribed_channels.count()
+        return self.subscribed_tubeusers.count()
 
     @property
     def get_videos(self):
@@ -39,7 +39,7 @@ class TubeChannel(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     def get_featured_video(self):
         return self.video_set.last()
 
@@ -49,7 +49,7 @@ class TubeUser(models.Model):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     has_channel = models.BooleanField(default=False)
     subscriptions = models.ManyToManyField(
-        TubeChannel, related_name='subscribed_channels', blank=True)
+        TubeChannel, related_name='subscribed_tubeusers', blank=True)
     channel = models.OneToOneField(
         TubeChannel, on_delete=models.CASCADE, null=True)
     image = models.ImageField(
@@ -57,10 +57,6 @@ class TubeUser(models.Model):
 
     def __str__(self):
         return str(self.user)
-
-    @property
-    def subscribed_channels(self):
-        return self.subscribed_channels.all()
 
 
 class Video(models.Model):

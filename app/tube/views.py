@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, Http404
 from django.contrib import messages
 from django.views.generic import DetailView
 from django.contrib.auth.decorators import login_required
@@ -9,6 +9,26 @@ def home(request):
     return render(request, 'tube/home.html', {
         'page_title': 'WeTube'
     })
+
+
+@login_required
+def subscription(request):
+    if request.method == 'POST':
+        sub_type = request.POST['type']
+        channel_name = request.POST['channel']
+
+        subscribed_channels = request.user.tubeuser.subscriptions
+        channel = TubeChannel.objects.get(name=channel_name)
+        if sub_type == 'unsubscribe':
+            subscribed_channels.remove(channel)
+            return redirect(channel.get_absolute_url())
+        elif sub_type == 'subscribe':
+            subscribed_channels.add(channel)
+            return redirect(channel.get_absolute_url())
+        else:
+            return Http404('Data lost!!!')
+
+    return redirect('home')
 
 
 @login_required
@@ -86,7 +106,11 @@ class ChannelDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['page_title'] = kwargs['object'].name
+        channel_name = kwargs['object'].name
+        context['page_title'] = channel_name
+        user_channels = self.request.user.tubeuser.subscriptions
+        context['subscribed'] = user_channels.filter(
+            name=channel_name).exists()
         return context
 
 
@@ -99,4 +123,7 @@ class VideoDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page_title'] = kwargs['object'].title
+        cur_views = kwargs['object'].views
+        kwargs['object'].views = cur_views + 1
+        kwargs['object'].save()
         return context
