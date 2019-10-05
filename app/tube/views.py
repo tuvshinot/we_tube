@@ -6,8 +6,16 @@ from .models import TubeChannel, Video, Tag
 
 
 def home(request):
+    subscription_videos = []
+    if request.user.is_authenticated:
+        tubeuser = request.user.tubeuser
+        for channel in tubeuser.subscriptions.all():
+            subscription_videos += channel.get_last_two
+
+
     return render(request, 'tube/home.html', {
-        'page_title': 'WeTube'
+        'page_title': 'WeTube', 
+        'subscription_videos' : subscription_videos
     })
 
 
@@ -126,4 +134,5 @@ class VideoDetail(DetailView):
         cur_views = kwargs['object'].views
         kwargs['object'].views = cur_views + 1
         kwargs['object'].save()
+
         return context

@@ -63,18 +63,26 @@
                 <span class="settings-top"><i class="fas fa-ellipsis-v"></i></span>
             </div>
         </div>
-        <div class="section-home__video">
-            <div class="section-home__video-thumbnail">
-                <img src="https://images.unsplash.com/photo-1506960002266-9cebbf4e9549?w=210&h=118&fit=crop" alt="">
-            </div>
-            <div class="home__video-info">
-                <h3>Really Cool Vlog 8</h3>
-                <div class="creator">ReallyCoolVlogs</div>
-                <span class="views">252K views </span>
-                <span class="upload-date"> &#8226; 1 day ago</span>
-                <span class="settings-top"><i class="fas fa-ellipsis-v"></i></span>
-            </div>
-        </div>
     </section>
 
+    <!-- Subscribed videos -->
+    {% if user.is_authenticated and subscription_videos %}
+        <section class="section-home">
+            <h2 class="title">Subscription</h2>
+            {% for v in subscription_videos %}
+                <div class="section-home__video">
+                    <div class="section-home__video-thumbnail">
+                        <img src="{{ v.thumbnail.url }}" alt="">
+                    </div>
+                    <div class="home__video-info">
+                        <h3><a href="{{ v.get_absolute_url }}">{{ v.title }}</a></h3>
+                        <div class="creator"><a href="{{ v.channel.get_absolute_url }}">{{ v.channel.name }}</a></div>
+                        <span class="views">{{ v.views }} views</span>
+                        <span class="upload-date"> &#8226; {{ v.created_at }}</span>
+                        <span class="settings-top"><i class="fas fa-ellipsis-v"></i></span>
+                    </div>
+                </div>
+            {% endfor %}
+        </section>
+    {% endif %}
 {% endblock%}

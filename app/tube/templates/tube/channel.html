@@ -127,7 +127,7 @@
                 <li class="video-creator">{{ channel.name }}</li>
             </div>
             <li class="video-views">{{ channel.get_featured_video.views }} views</li>
-            <li class="video-upload-date">{{ channel.get_featured_video.timestamp }}</li>
+            <li class="video-upload-date">{{ channel.get_featured_video.created_at }}</li>
         </ul>
         <p class="video-description">Another installment of the really cool vlog. Please like and share the video.
             Subscribe and activate notifications so you never miss an upload. Follow on social media etc.</p>
@@ -149,7 +149,7 @@
             </a>
             <div class="creator"><a href="{{ channel.get_absolute_url }}">{{ channel.name }} </a></div>
             <span class="views">{{ v.views }} views</span>
-            <span class="upload-date"> &#8226; {{ v.timestamp }}</span>
+            <span class="upload-date"> &#8226; {{ v.created_at }}</span>
             <span class="settings-top"><i class="fas fa-ellipsis-v"></i></span>
         </div>
     </div>
